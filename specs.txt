@@ -1,0 +1,27 @@
+Create new user (with unique access key):
+
+createUser (String user) 
+  Creates a new user, generates a unique key (6 characters, upper-case letters)
+  If the user already exists, raises error
+
+Save highest score per user:
+
+setScore (String user, String key, int score) 
+  Store the highest score for the user
+  If the user does not exist, raises error 
+  If the key is not correct, raises error
+
+
+getScore (String user, String key) 
+  Return user score 
+  If the user does not exist, raises error 
+  If the key is not correct, raises error
+
+Print out list of users by scoring:
+printScoreList ()
+
+Try to optimize cost of the operations
+
+Bonus:
+Support for concurrent operations
+
