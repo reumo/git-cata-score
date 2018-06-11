@@ -1,5 +1,6 @@
 package catascore;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -35,4 +36,18 @@ public class UserImplTest {
 		user.setScore(100);
 		assertNotNull(user.getScore());
 	}
+	
+	@Test
+	public void TwoDifferentNameUsersEqualsFalse() throws Exception {
+		User user1 = new User("user1");
+		User user2 = new User("user2");
+		assertFalse(user1.equals(user2));
+	}
+	@Test
+	public void TwoSameNameUsersEqualsTrue() throws Exception {
+		User user1 = new User("user1");
+		User user2 = new User("user1");
+		assert(user1.equals(user2));
+	}
+	
 }
