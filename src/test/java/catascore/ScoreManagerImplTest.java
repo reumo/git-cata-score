@@ -11,7 +11,7 @@ public class ScoreManagerImplTest {
 
 	@Before
 	public void initialize() {
-		scoreManager = new ScoreManagerImpl();
+	    scoreManager = new ScoreManagerImpl();
 	}
 	
 	@Test(expected = Exception.class)
