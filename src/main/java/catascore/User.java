@@ -1,6 +1,6 @@
 package catascore;
 
-public class User {
+public class User implements Comparable{
 
 	private String name;
 	private String key;
@@ -33,7 +33,7 @@ public class User {
 		this.score = score;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -55,6 +55,17 @@ public class User {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}*/
+
+	public int compareTo(Object user) {
+		return new Integer(this.score).compareTo(((User)user).score);
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"name='" + name + '\'' +
+				", score=" + score +
+				'}';
+	}
 }

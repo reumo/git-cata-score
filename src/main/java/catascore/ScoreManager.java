@@ -6,8 +6,8 @@ public interface ScoreManager {
 
 	public void setScore (String userName, String key, int score) throws Exception;
 	
-	public int getScore (String userName, String key);
+	public int getScore (String userName, String key) throws Exception;
 	
-	public void printScoreList ();
+	public String printScoreList ();
 
 }

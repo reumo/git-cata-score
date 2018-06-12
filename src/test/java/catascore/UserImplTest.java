@@ -1,10 +1,9 @@
 package catascore;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class UserImplTest {
 
@@ -36,8 +35,34 @@ public class UserImplTest {
 		user.setScore(100);
 		assertNotNull(user.getScore());
 	}
-	
+
 	@Test
+	public void compareEqualsScore(){
+		user.setScore(10);
+		User newUser = new User("user02");
+		newUser.setScore(10);
+		assertEquals(0, user.compareTo(newUser));
+	}
+
+	@Test
+	public void compareHighestScore(){
+		user.setScore(10);
+		User newUser = new User("user02");
+		newUser.setScore(20);
+		assertEquals(-1, user.compareTo(newUser));
+	}
+
+	@Test
+	public void compareLowestScore(){
+		user.setScore(20);
+		User newUser = new User("user02");
+		newUser.setScore(10);
+		assertEquals(1, user.compareTo(newUser));
+	}
+
+
+	
+	/*@Test
 	public void TwoDifferentNameUsersEqualsFalse() throws Exception {
 		User user1 = new User("user1");
 		User user2 = new User("user2");
@@ -62,6 +87,6 @@ public class UserImplTest {
 		User user1 = new User("user1");
 		User user2 = new User("user2");
 		assertFalse(user1.hashCode() == user2.hashCode());
-	}
+	}*/
 	
 }
