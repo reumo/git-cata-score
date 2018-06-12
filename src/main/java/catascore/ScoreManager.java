@@ -4,9 +4,9 @@ public interface ScoreManager {
 	
 	public String createUser (String user) throws Exception;
 
-	public void setScore (String user, String key, int score);
+	public void setScore (String userName, String key, int score) throws Exception;
 	
-	public int getScore (String user, String key); 
+	public int getScore (String userName, String key);
 	
 	public void printScoreList ();
 
