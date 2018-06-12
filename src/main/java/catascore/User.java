@@ -5,7 +5,6 @@ public class User {
 	private String name;
 	private String key;
 	private int score;
-
 	public User(String name) {
 		this.name = name;
 	}
@@ -45,7 +44,6 @@ public class User {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())

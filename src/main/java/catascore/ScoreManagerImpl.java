@@ -4,18 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ScoreManagerImpl implements ScoreManager{
-	
+
 	Set<User> users;
 	
 	public ScoreManagerImpl() {
 		users = new HashSet<User>();
 	}
 
-	public String createUser(String user) throws Exception {
-		if (user.isEmpty()) {
+	public String createUser(String userName) throws Exception {
+		if (userName.trim().isEmpty()) {
 			throw new Exception();
-		}		
-		if (users.contains(new User(user))) {
+		}
+		if (users.add(new User(userName))) {
 			throw new Exception();
 		}
 		return null;
