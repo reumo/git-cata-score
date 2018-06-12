@@ -2,6 +2,7 @@ Create new user (with unique access key):
 
 createUser (String user) 
   Creates a new user, generates a unique key (6 characters, upper-case letters)
+  Return key
   If the user already exists, raises error
 
 Save highest score per user:
