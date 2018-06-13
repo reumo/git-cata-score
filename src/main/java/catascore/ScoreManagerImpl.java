@@ -7,8 +7,8 @@ public class ScoreManagerImpl implements ScoreManager{
 	Map<String, User> users;
 	KeyGenerator keyGenerator;
 	
-	public ScoreManagerImpl(Map<String, User> users) {
-		keyGenerator = new KeyGeneratorImpl();
+	public ScoreManagerImpl(Map<String, User> users, KeyGenerator keyGenerator) {
+		this.keyGenerator = keyGenerator;
 		this.users = users;
 	}
 

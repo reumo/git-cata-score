@@ -59,34 +59,5 @@ public class UserImplTest {
 		newUser.setScore(10);
 		assertEquals(1, user.compareTo(newUser));
 	}
-
-
-	
-	/*@Test
-	public void TwoDifferentNameUsersEqualsFalse() throws Exception {
-		User user1 = new User("user1");
-		User user2 = new User("user2");
-		assertFalse(user1.equals(user2));
-	}
-	@Test
-	public void TwoSameNameUsersEqualsTrue() throws Exception {
-		User user1 = new User("user1");
-		User user2 = new User("user1");
-		assert(user1.equals(user2));
-	}
-	
-	@Test
-	public void TwoSameNameUserHaveSameHash() throws Exception {
-		User user1 = new User("user1");
-		User user2 = new User("user1");
-		assert(user1.hashCode() == user2.hashCode());
-	}
-	
-	@Test
-	public void TwoDifferentNameUserHaveDifferentHash() throws Exception {
-		User user1 = new User("user1");
-		User user2 = new User("user2");
-		assertFalse(user1.hashCode() == user2.hashCode());
-	}*/
 	
 }

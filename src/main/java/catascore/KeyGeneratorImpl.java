@@ -26,4 +26,8 @@ public class KeyGeneratorImpl  implements KeyGenerator{
             this.first = false;
             return this.key.toString();
     }
+
+    public String getCurrentKey(){
+        return  key.toString();
+    }
 }

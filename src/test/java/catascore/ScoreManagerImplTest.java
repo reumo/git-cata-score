@@ -14,11 +14,14 @@ public class ScoreManagerImplTest {
 	
 	ScoreManagerImpl scoreManager;
     Map<String, User> users;
+    KeyGenerator keyGenerator;
 
 	@Before
 	public void initialize() {
 	    users = new HashMap<String, User>();
-	    scoreManager = new ScoreManagerImpl(users);
+        keyGenerator = new KeyGeneratorImpl();
+	    scoreManager = new ScoreManagerImpl(users, keyGenerator);
+
 	}
 	
 	@Test(expected = Exception.class)
@@ -36,6 +39,12 @@ public class ScoreManagerImplTest {
     public void createUserReturnKey() throws Exception {
 	    String key = scoreManager.createUser("user");
 	    assertNotNull(key);
+    }
+
+    @Test
+    public void createUserReturnCorrectKey() throws Exception {
+        String key = scoreManager.createUser("user");
+        assertEquals(keyGenerator.getCurrentKey(), key);
     }
 
     @Test
@@ -77,7 +86,7 @@ public class ScoreManagerImplTest {
         scoreManager.setScore("user", key , secondScore);
         assertNotEquals(secondScore,users.get(userName).getScore());
     }
-//TODO: Desacoplate from setScore
+    //TODO: Desacoplate from setScore
     @Test
     public void getCorrectScore() throws Exception {
         String userName = "user";
@@ -103,7 +112,7 @@ public class ScoreManagerImplTest {
     @Test
     public void printOrderedValuesNotNull() throws Exception {
         String key = scoreManager.createUser("user01");
-        scoreManager.setScore("user01", key , 1);
+        scoreManager.setScore("user01", keyGenerator.getCurrentKey() , 1);
         key = scoreManager.createUser("user03");
         assertNotNull(scoreManager.printScoreList());
     }
