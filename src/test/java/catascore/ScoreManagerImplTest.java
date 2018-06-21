@@ -14,11 +14,14 @@ public class ScoreManagerImplTest {
 	
 	ScoreManagerImpl scoreManager;
     Map<String, User> users;
+    KeyGenerator keyGenerator;
 
 	@Before
 	public void initialize() {
 	    users = new HashMap<String, User>();
-	    scoreManager = new ScoreManagerImpl(users);
+        keyGenerator = new KeyGeneratorImpl();
+	    scoreManager = new ScoreManagerImpl(users, keyGenerator);
+
 	}
 	
 	@Test(expected = Exception.class)
@@ -36,6 +39,12 @@ public class ScoreManagerImplTest {
     public void createUserReturnKey() throws Exception {
 	    String key = scoreManager.createUser("user");
 	    assertNotNull(key);
+    }
+
+    @Test
+    public void createUserReturnCorrectKey() throws Exception {
+        String key = scoreManager.createUser("user");
+        assertEquals(keyGenerator.getCurrentKey(), key);
     }
 
     @Test
@@ -77,34 +86,39 @@ public class ScoreManagerImplTest {
         scoreManager.setScore("user", key , secondScore);
         assertNotEquals(secondScore,users.get(userName).getScore());
     }
-//TODO: Desacoplate from setScore
+    
     @Test
     public void getCorrectScore() throws Exception {
-        String userName = "user";
-        String key = scoreManager.createUser(userName);
-        int score = 2;
-        scoreManager.setScore(userName, key , score);
-        assertEquals(score,users.get(userName).getScore());
+        User user = new User("user");
+        users.put("user", user);
+        user.setKey("A");
+        user.setScore(2);
+        assertEquals(2, scoreManager.getScore("user", "A"));
     }
 
-    //TODO: Desacoplate from setScore...
     @Test
     public void printOrderedValues() throws Exception {
-        String key = scoreManager.createUser("user01");
-        scoreManager.setScore("user01", key , 1);
-        key = scoreManager.createUser("user03");
-        scoreManager.setScore("user03", key , 3);
-        key = scoreManager.createUser("user02");
-        scoreManager.setScore("user02", key , 2);
+    	User user1 = new User("user02");
+        users.put("user1", user1);
+        user1.setKey("A");
+        user1.setScore(2);
+        User user2 = new User("user01");
+        users.put("user2", user2);
+        user2.setKey("A");
+        user2.setScore(1);
+        User user3 = new User("user03");
+        users.put("user3", user3);
+        user3.setKey("A");
+        user3.setScore(3);
         assertEquals("[User{name='user03', score=3}, User{name='user02', score=2}, User{name='user01', score=1}]", scoreManager.printScoreList());
     }
 
-    //TODO: Desacoplate from setScore...
     @Test
     public void printOrderedValuesNotNull() throws Exception {
-        String key = scoreManager.createUser("user01");
-        scoreManager.setScore("user01", key , 1);
-        key = scoreManager.createUser("user03");
+    	User user1 = new User("user02");
+        users.put("user1", user1);
+        user1.setKey("A");
+        user1.setScore(2);
         assertNotNull(scoreManager.printScoreList());
     }
 

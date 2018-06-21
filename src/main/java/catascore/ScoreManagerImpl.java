@@ -1,14 +1,16 @@
 package catascore;
 
+import com.google.inject.Inject;
 import java.util.*;
 
 public class ScoreManagerImpl implements ScoreManager{
 
 	Map<String, User> users;
 	KeyGenerator keyGenerator;
-	
-	public ScoreManagerImpl(Map<String, User> users) {
-		keyGenerator = new KeyGeneratorImpl();
+
+	@Inject
+	public ScoreManagerImpl(Map<String, User> users, KeyGenerator keyGenerator) {
+		this.keyGenerator = keyGenerator;
 		this.users = users;
 	}
 
