@@ -4,23 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class ScoreManagerImplTest {
 	
 	ScoreManagerImpl scoreManager;
-    Map<String, User> users;
-    KeyGenerator keyGenerator;
 
 	@Before
 	public void initialize() {
-	    users = new HashMap<String, User>();
-        keyGenerator = new KeyGeneratorImpl();
-	    scoreManager = new ScoreManagerImpl(users, keyGenerator);
+        Injector injector = Guice.createInjector(new ScoreManagerModule());
+        scoreManager = injector.getInstance(ScoreManagerImpl.class);
 
 	}
 	
@@ -44,6 +42,7 @@ public class ScoreManagerImplTest {
     @Test
     public void createUserReturnCorrectKey() throws Exception {
         String key = scoreManager.createUser("user");
+        KeyGenerator keyGenerator = scoreManager.getKeyGenerator();
         assertEquals(keyGenerator.getCurrentKey(), key);
     }
 
@@ -73,7 +72,9 @@ public class ScoreManagerImplTest {
         int secondScore = 2;
         scoreManager.setScore("user", key , firstScore);
         scoreManager.setScore("user", key , secondScore);
-        assertEquals(secondScore,users.get(userName).getScore());
+        HashMap<String, User> users = (HashMap<String, User>) scoreManager.getUsers();
+        User user = users.get(userName);
+        assertEquals(secondScore,user.getScore());
     }
 
     @Test
@@ -84,12 +85,15 @@ public class ScoreManagerImplTest {
         int secondScore = 1;
         scoreManager.setScore("user", key , firstScore);
         scoreManager.setScore("user", key , secondScore);
-        assertNotEquals(secondScore,users.get(userName).getScore());
+        HashMap<String, User> users = (HashMap<String, User>) scoreManager.getUsers();
+        User user = users.get(userName);
+        assertNotEquals(secondScore,user.getScore());
     }
     
     @Test
     public void getCorrectScore() throws Exception {
         User user = new User("user");
+        HashMap<String, User> users = (HashMap<String, User>) scoreManager.getUsers();
         users.put("user", user);
         user.setKey("A");
         user.setScore(2);
@@ -99,15 +103,15 @@ public class ScoreManagerImplTest {
     @Test
     public void printOrderedValues() throws Exception {
     	User user1 = new User("user02");
-        users.put("user1", user1);
+        scoreManager.getUsers().put("user1", user1);
         user1.setKey("A");
         user1.setScore(2);
         User user2 = new User("user01");
-        users.put("user2", user2);
+        scoreManager.getUsers().put("user2", user2);
         user2.setKey("A");
         user2.setScore(1);
         User user3 = new User("user03");
-        users.put("user3", user3);
+        scoreManager.getUsers().put("user3", user3);
         user3.setKey("A");
         user3.setScore(3);
         assertEquals("[User{name='user03', score=3}, User{name='user02', score=2}, User{name='user01', score=1}]", scoreManager.printScoreList());
@@ -116,7 +120,7 @@ public class ScoreManagerImplTest {
     @Test
     public void printOrderedValuesNotNull() throws Exception {
     	User user1 = new User("user02");
-        users.put("user1", user1);
+        scoreManager.getUsers().put("user1", user1);
         user1.setKey("A");
         user1.setScore(2);
         assertNotNull(scoreManager.printScoreList());

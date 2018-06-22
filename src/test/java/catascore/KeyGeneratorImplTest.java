@@ -18,7 +18,8 @@ public class KeyGeneratorImplTest {
 
     @Test
     public void generateSixCharacterKey() throws Exception{
-        assertEquals(N_CHAR, keyGenerator.generateKey().length());
+        String generatedKey = keyGenerator.generateKey();
+        assertEquals(N_CHAR, generatedKey.length());
     }
 
     @Test
