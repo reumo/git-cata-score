@@ -2,7 +2,6 @@ package catascore;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.name.Names;
 
 import java.util.HashMap;
 import java.util.Map;
