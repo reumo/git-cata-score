@@ -23,7 +23,7 @@ public class ScoreManagerImplTest {
     @Test
     public void sameInjectorUniqueInstanceScoreManager() {
         ScoreManagerImpl scoreManagerOtherInstance = injector.getInstance(ScoreManagerImpl.class);
-        assertSame(scoreManager.getKeyGenerator() , scoreManagerOtherInstance);
+        assertEquals(scoreManager , scoreManagerOtherInstance);
 
     }
 
