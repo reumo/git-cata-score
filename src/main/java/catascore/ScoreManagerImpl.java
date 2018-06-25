@@ -1,9 +1,11 @@
 package catascore;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import java.util.*;
 
+@Singleton
 public class ScoreManagerImpl implements ScoreManager{
 
 	private Map<String, User> users;

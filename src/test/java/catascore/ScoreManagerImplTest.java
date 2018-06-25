@@ -1,9 +1,5 @@
 package catascore;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.Before;
@@ -11,16 +7,35 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static org.junit.Assert.*;
+
 public class ScoreManagerImplTest {
 	
 	ScoreManagerImpl scoreManager;
+    Injector injector;
 
 	@Before
 	public void initialize() {
-        Injector injector = Guice.createInjector(new ScoreManagerModule());
+        injector = Guice.createInjector(new ScoreManagerModule());
         scoreManager = injector.getInstance(ScoreManagerImpl.class);
 
 	}
+    @Test
+    public void sameInjectorUniqueInstanceScoreManager() {
+        ScoreManagerImpl scoreManagerOtherInstance = injector.getInstance(ScoreManagerImpl.class);
+        assertSame(scoreManager.getKeyGenerator() , scoreManagerOtherInstance);
+
+    }
+
+    public void distinctInjectorUniqueInstanceScoreManager() {
+        Injector injectorOtrher = Guice.createInjector(new ScoreManagerModule());
+        ScoreManagerImpl scoreManagerOtherInstance = injectorOtrher.getInstance(ScoreManagerImpl.class);
+
+        assertSame(scoreManager , scoreManagerOtherInstance);
+
+    }
+
+
 	
 	@Test(expected = Exception.class)
     public void createEmptyUser() throws Exception{
