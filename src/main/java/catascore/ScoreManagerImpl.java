@@ -1,12 +1,13 @@
 package catascore;
 
 import com.google.inject.Inject;
+
 import java.util.*;
 
 public class ScoreManagerImpl implements ScoreManager{
 
-	Map<String, User> users;
-	KeyGenerator keyGenerator;
+	private Map<String, User> users;
+	private KeyGenerator keyGenerator;
 
 	@Inject
 	public ScoreManagerImpl(Map<String, User> users, KeyGenerator keyGenerator) {
@@ -56,5 +57,13 @@ public class ScoreManagerImpl implements ScoreManager{
         }
         return user;
     }
+
+	public Map<String, User> getUsers() {
+		return users;
+	}
+
+	public KeyGenerator getKeyGenerator() {
+		return keyGenerator;
+	}
 
 }
